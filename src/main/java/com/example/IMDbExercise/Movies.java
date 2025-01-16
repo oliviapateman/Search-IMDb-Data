@@ -1,34 +1,30 @@
 package com.example.IMDbExercise;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.util.List;
 
 @Entity
 public class Movies {
 
     @Id
-    String titleId;
+    String titleType;
     String primaryTitle;
-    List<String> genres;
+    boolean isAdult;
 
-    public String getTitleId() {
-        return titleId;
+    public boolean isAdult() {
+        return isAdult;
     }
 
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
+    public void setAdult(boolean adult) {
+        isAdult = adult;
     }
 
-    public List<String> getGenres() {
-        return genres;
+    public String getTitleType() {
+        return titleType;
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+    public void setTitleType(String titleType) {
+        this.titleType = titleType;
     }
 
     public String getPrimaryTitle() {
@@ -41,15 +37,15 @@ public class Movies {
 
     protected Movies(){}
 
-    public Movies(String titleId, String primaryTitle, List<String> genres){
-        this.titleId = titleId;
+    public Movies(String titleType, String primaryTitle, boolean isAdult){
+        this.titleType = titleType;
         this.primaryTitle = primaryTitle;
-        this.genres = genres;
+        this.isAdult = isAdult;
     }
 
     @Override
     public String toString() {
-        return String.format("Movies[primaryTitle='%s', genres='%s']",
-                primaryTitle, genres);
+        return String.format("[titleType='%s', primaryTitle='%s', isAdult='%s']",
+                titleType, primaryTitle, isAdult);
     }
 }
