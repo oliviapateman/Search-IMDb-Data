@@ -2,14 +2,26 @@ package com.example.IMDbExercise;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 @Entity
 public class Movies {
 
     @Id
+    int tconst;
+
     String titleType;
+    @Lob
     String primaryTitle;
     boolean isAdult;
+
+    public int getTconst() {
+        return tconst;
+    }
+
+    public void setTconst(int tconst) {
+        this.tconst = tconst;
+    }
 
     public boolean isAdult() {
         return isAdult;
@@ -37,7 +49,8 @@ public class Movies {
 
     protected Movies(){}
 
-    public Movies(String titleType, String primaryTitle, boolean isAdult){
+    public Movies(int tconst, String titleType, String primaryTitle, boolean isAdult){
+        this.tconst = tconst;
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
         this.isAdult = isAdult;
