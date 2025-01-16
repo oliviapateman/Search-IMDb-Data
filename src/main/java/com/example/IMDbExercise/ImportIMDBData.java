@@ -29,26 +29,33 @@ public class ImportIMDBData {
         CSVFormat format = CSVFormat.TDF.builder()
                 .setHeader(DataHeaders.class)
                 .setSkipHeaderRecord(true)
+                .setQuote(null)
                 .get();
         CSVParser records = format.parse(bufferedReader);
 
         int count = 0;
-        int limit = 500;
-        List<Movies> imbdData = new ArrayList<>();
+        int limit = 1000;
+        List<Movies> imdbData = new ArrayList<>();
 
         for (CSVRecord record : records){
-            if (count >= limit){
-                break;
-            }
+            int tconst = Integer.parseInt(record.get("tconst").substring(2));
             String titleType = record.get("titleType");
             String primaryTitle = record.get("primaryTitle");
             boolean isAdult = Boolean.parseBoolean(record.get("isAdult"));
-            Movies movie = new Movies(titleType, primaryTitle, isAdult);
-            imbdData.add(movie);
+            Movies movie = new Movies(tconst, titleType, primaryTitle, isAdult);
+            imdbData.add(movie);
             count++;
+            if (count % limit == 0){
+
+                moviesRepository.saveAll(imdbData);
+                imdbData.clear();
+                System.out.println(count + " movies added");
+            }
         }
-        moviesRepository.saveAll(imbdData);
-        System.out.println(imbdData);
+        if (!imdbData.isEmpty()){
+            moviesRepository.saveAll(imdbData);
+            System.out.println(count + " remaining movies added");
+        }
     }
 
 }
