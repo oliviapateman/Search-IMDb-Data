@@ -1,36 +1,54 @@
 package com.example.IMDbExercise;
 
-import jakarta.persistence.ElementCollection;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+@Component
 public class ImportIMDBData {
 
-    @ElementCollection
-    List<String> lines = new ArrayList<>();
+    @Autowired MoviesRepository moviesRepository;
 
-    public List<String> getImportFile(int limit) throws IOException, InterruptedException {
-        
+    public void importFile() throws IOException {
+
         //TODO: Don't hardcode this
         File filePath = new File("C:\\Users\\olivia.pateman\\Documents\\Academy37\\DevAcademy\\title.basics.tsv.gz");
 
-        try (FileInputStream fileInputStream = new FileInputStream(filePath);
-             GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
-             InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
-             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            String line;
-            int count = 0;
-            while ((line = bufferedReader.readLine()) != null && count < limit){
-                    lines.add(line);
-                    count++;
+        FileInputStream fileInputStream = new FileInputStream(filePath);
+        GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
+        InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        CSVFormat format = CSVFormat.TDF.builder()
+                .setHeader(DataHeaders.class)
+                .setSkipHeaderRecord(true)
+                .get();
+        CSVParser records = format.parse(bufferedReader);
+
+        int count = 0;
+        int limit = 500;
+        List<Movies> imbdData = new ArrayList<>();
+
+        for (CSVRecord record : records){
+            if (count >= limit){
+                break;
             }
-        } catch (IOException e){
-            e.printStackTrace(System.err);
+            String titleType = record.get("titleType");
+            String primaryTitle = record.get("primaryTitle");
+            boolean isAdult = Boolean.parseBoolean(record.get("isAdult"));
+            Movies movie = new Movies(titleType, primaryTitle, isAdult);
+            imbdData.add(movie);
+            count++;
         }
-        return lines;
+        moviesRepository.saveAll(imbdData);
+        System.out.println(imbdData);
     }
 
 }
