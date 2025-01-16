@@ -10,6 +10,6 @@ public interface MoviesRepository extends CrudRepository<Movies, String> {
 
     List<Movies> findByPrimaryTitle(String primaryTitle);
 
-    List<Movies> findByGenres(List<String> genres);
+    List<Movies> findByIsAdult(boolean isAdult);
 
 }
