@@ -41,8 +41,8 @@ public class ImportIMDBData {
             int tconst = Integer.parseInt(record.get("tconst").substring(2));
             String titleType = record.get("titleType");
             String primaryTitle = record.get("primaryTitle");
-            boolean isAdult = Boolean.parseBoolean(record.get("isAdult"));
-            Movies movie = new Movies(tconst, titleType, primaryTitle, isAdult);
+            String originalTitle = record.get("originalTitle");
+            Movies movie = new Movies(tconst, titleType, primaryTitle, originalTitle);
             imdbData.add(movie);
             count++;
             if (count % limit == 0){

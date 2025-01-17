@@ -13,7 +13,16 @@ public class Movies {
     String titleType;
     @Lob
     String primaryTitle;
-    boolean isAdult;
+    @Lob
+    String originalTitle;
+
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
 
     public int getTconst() {
         return tconst;
@@ -21,14 +30,6 @@ public class Movies {
 
     public void setTconst(int tconst) {
         this.tconst = tconst;
-    }
-
-    public boolean isAdult() {
-        return isAdult;
-    }
-
-    public void setAdult(boolean adult) {
-        isAdult = adult;
     }
 
     public String getTitleType() {
@@ -49,16 +50,16 @@ public class Movies {
 
     protected Movies(){}
 
-    public Movies(int tconst, String titleType, String primaryTitle, boolean isAdult){
+    public Movies(int tconst, String titleType, String primaryTitle, String originalTitle){
         this.tconst = tconst;
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
-        this.isAdult = isAdult;
+        this.originalTitle = originalTitle;
     }
 
     @Override
     public String toString() {
-        return String.format("[titleType='%s', primaryTitle='%s', isAdult='%s']",
-                titleType, primaryTitle, isAdult);
+        return String.format("[titleType='%s', primaryTitle='%s', originalTitle='%s']",
+                titleType, primaryTitle, originalTitle);
     }
 }

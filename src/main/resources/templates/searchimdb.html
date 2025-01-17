@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <body>
 
 <h1>Search IMDB</h1>
 <div>
-    <form action="#" th:action="@{/searchimdb}" th:object="${movies}" method="get">
+    <form th:action="@{/searchimdb}" th:object="${movies}">
         <label>
             <input type="text" name="keyword" id="keyword" th:value="${keyword}" placeholder="Search..."
-                           required>
+                   required>
         </label>
-        <button type="submit" value="Send">Submit</button>
+        <button type="submit" value="Search">Submit</button>
     </form>
 </div>
-<div th:if="${keyword != null}">
-    <table>
+
+<div th:if="${not #lists.isEmpty(listMovies)}" size="30">
+    <table border="1" cellpadding="10">
+        <thead>
         <tr>
             <th>Title ID</th>
             <th>Title Type</th>
             <th>Primary Title</th>
-            <th>Is Adult</th>
+            <th>Original Title</th>
         </tr>
-        <tr th:each="movie : ${listMovies}">
-            <td th:text="${movie.titleId}">Title ID</td>
-            <td th:text="${movie.titleType}">Title Type</td>
-            <td th:text="${movie.primaryTitle}">Primary Title</td>
-            <td th:text="${movie.isAdult}">Is Adult</td>
+        </thead>
+        <tbody>
+        <tr th:each="movies : ${listMovies}">
+            <td th:text="${movies.tconst}">Title ID</td>
+            <td th:text="${movies.titleType}">Title Type</td>
+            <td th:text="${movies.primaryTitle}">Primary Title</td>
+            <td th:text="${movies.originalTitle}">Original Title</td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>
