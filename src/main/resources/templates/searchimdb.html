@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+
+<h1>Search IMDB</h1>
+<div>
+    <form action="#" th:action="@{/searchimdb}" th:object="${movies}" method="get">
+        <label>
+            <input type="text" name="keyword" id="keyword" th:value="${keyword}" placeholder="Search..."
+                           required>
+        </label>
+        <button type="submit" value="Send">Submit</button>
+    </form>
+</div>
+<div th:if="${keyword != null}">
+    <table>
+        <tr>
+            <th>Title ID</th>
+            <th>Title Type</th>
+            <th>Primary Title</th>
+            <th>Is Adult</th>
+        </tr>
+        <tr th:each="movie : ${listMovies}">
+            <td th:text="${movie.titleId}">Title ID</td>
+            <td th:text="${movie.titleType}">Title Type</td>
+            <td th:text="${movie.primaryTitle}">Primary Title</td>
+            <td th:text="${movie.isAdult}">Is Adult</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
