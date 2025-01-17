@@ -4,6 +4,7 @@
 <body>
 
 <h1>Search IMDB</h1>
+
 <div>
     <form th:action="@{/searchimdb}" th:object="${movies}">
         <label>
@@ -24,6 +25,7 @@
             <th>Original Title</th>
         </tr>
         </thead>
+
         <tbody>
         <tr th:each="movies : ${listMovies}">
             <td th:text="${movies.tconst}">Title ID</td>
