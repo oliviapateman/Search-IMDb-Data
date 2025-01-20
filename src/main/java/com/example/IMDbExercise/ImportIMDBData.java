@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -16,13 +18,13 @@ public class ImportIMDBData {
 
     @Autowired MoviesRepository moviesRepository;
 
-    public void importFile() throws IOException {
+    public InputStream getFile(String imdbUrl) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL(imdbUrl).openConnection();
+        return connection.getInputStream();
+    }
 
-        //TODO: Don't hardcode this
-        File filePath = new File("C:\\Users\\olivia.pateman\\Documents\\Academy37\\DevAcademy\\title.basics.tsv.gz");
-
-        FileInputStream fileInputStream = new FileInputStream(filePath);
-        GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
+    public void importFile(InputStream inputStream) throws IOException {
+        GZIPInputStream gzipInputStream = new GZIPInputStream(inputStream);
         InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -30,6 +32,8 @@ public class ImportIMDBData {
                 .setHeader(DataHeaders.class)
                 .setSkipHeaderRecord(true)
                 .setQuote(null)
+                .setNullString("N/A")
+                .setIgnoreEmptyLines(true)
                 .get();
         CSVParser records = format.parse(bufferedReader);
 
@@ -46,7 +50,6 @@ public class ImportIMDBData {
             imdbData.add(movie);
             count++;
             if (count % limit == 0){
-
                 moviesRepository.saveAll(imdbData);
                 imdbData.clear();
                 System.out.println(count + " movies added");
