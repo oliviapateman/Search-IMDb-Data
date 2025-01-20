@@ -3,6 +3,7 @@ package com.example.IMDbExercise;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import org.springframework.lang.Nullable;
 
 @Entity
 public class Movies {
@@ -12,17 +13,11 @@ public class Movies {
 
     String titleType;
     @Lob
-    String primaryTitle;
-    @Lob
     String originalTitle;
-
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        this.originalTitle = originalTitle;
-    }
+    @Lob
+    String primaryTitle;
+    @Nullable
+    boolean isAdult;
 
     public int getTconst() {
         return tconst;
@@ -47,6 +42,10 @@ public class Movies {
     public void setPrimaryTitle(String primaryTitle) {
         this.primaryTitle = primaryTitle;
     }
+
+    public String getOriginalTitle() { return originalTitle; }
+
+    public void setOriginalTitle(String originalTitle) { this.originalTitle = originalTitle; }
 
     protected Movies(){}
 
