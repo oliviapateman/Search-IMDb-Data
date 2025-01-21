@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 @Component
-public class ImportBasics {
+public class ImportFiles {
 
     @Autowired
     MoviesRepository moviesRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(ImportBasics.class);
+    private static final Logger logger = LoggerFactory.getLogger(ImportFiles.class);
 
     public Path getBasicsFileFromDir() throws IOException {
         File tempFile = Files.createTempFile("title.basics.tsv", ".gz").toFile();
@@ -35,7 +35,7 @@ public class ImportBasics {
         return path.toAbsolutePath();
     }
 
-    public CSVParser importFile(Path path) throws IOException {
+    public CSVParser importBasicsFile(Path path) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(String.valueOf(path));
         GZIPInputStream gzipInputStream = new GZIPInputStream(fileInputStream);
         InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
@@ -51,7 +51,7 @@ public class ImportBasics {
         return format.parse(bufferedReader);
     }
 
-    public void basicsParsing(CSVParser records) {
+    public void fileParsing(CSVParser records) {
         int count = 0;
         int limit = 1000;
         List<Movies> imdbData = new ArrayList<>();

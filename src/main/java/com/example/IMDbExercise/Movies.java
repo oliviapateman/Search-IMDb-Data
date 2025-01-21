@@ -1,8 +1,6 @@
 package com.example.IMDbExercise;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 import org.springframework.lang.Nullable;
 
 @Entity
@@ -13,9 +11,9 @@ public class Movies {
 
     String titleType;
     @Lob
-    String originalTitle;
-    @Lob
     String primaryTitle;
+    @Lob
+    String originalTitle;
     @Nullable
     boolean isAdult;
 
@@ -43,9 +41,13 @@ public class Movies {
         this.primaryTitle = primaryTitle;
     }
 
-    public String getOriginalTitle() { return originalTitle; }
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
 
-    public void setOriginalTitle(String originalTitle) { this.originalTitle = originalTitle; }
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
 
     protected Movies(){}
 
@@ -54,11 +56,5 @@ public class Movies {
         this.titleType = titleType;
         this.primaryTitle = primaryTitle;
         this.originalTitle = originalTitle;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[titleType='%s', primaryTitle='%s', originalTitle='%s']",
-                titleType, primaryTitle, originalTitle);
     }
 }
