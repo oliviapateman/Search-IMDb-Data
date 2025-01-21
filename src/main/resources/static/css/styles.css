@@ -1,0 +1,34 @@
+*{
+    text-align: center;
+    font-family: Geneva;
+}
+
+h1{
+    outline-color: rgb(232, 232, 91);
+    outline-style: inset;
+    outline-width: 5px;
+    font-style: bold;
+}
+
+table, th, td{
+    border: 2px solid;
+    border-color: rgb(85, 85, 85);
+}
+
+table{
+    width: 100%;
+}
+
+th{
+    background-color: rgb(226, 217, 118);
+    font-size: 18px;
+    font-style: bold;
+}
+
+tr:hover{background-color: rgb(238, 232, 170);}
+
+td{
+    font-size: 15px;
+    text-align: left;
+    font-style: normal;
+}
