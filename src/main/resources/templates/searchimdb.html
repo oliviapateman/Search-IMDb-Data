@@ -2,10 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" lang="EN">
 
-<body>
+<head>
+    <title>IMDb Search</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"/>
+</head>
 
-<div align="center">
-    <h1>Search IMDB</h1>
+<body>
+<div>
+    <h2>Search IMDb</h2>
     <form th:action="@{/searchimdb}" th:object="${movies}">
         <label>
             <input type="text" name="keyword" id="keyword" th:value="${keyword}" placeholder="Search..."
@@ -16,8 +20,8 @@
     <br>
 </div>
 
-<div th:if="${not #lists.isEmpty(listMovies)}" size="30">
-    <table border="1" cellpadding="10" class="table">
+<div th:if="${not #lists.isEmpty(listMovies)}">
+    <table class="table">
         <thead>
         <tr>
             <th>Title ID</th>
