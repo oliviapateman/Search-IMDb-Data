@@ -16,12 +16,12 @@ class ControllerTests {
 	private MoviesController moviesController;
 
 	@Test
-	void homePageLoads() {
+	void homeControllerIsCreated() {
 		assertNotNull(homeController);
 	}
 
 	@Test
-	void searchPageLoads() {
+	void moviesControllerIsCreated() {
 		assertNotNull(moviesController);
 	}
 
