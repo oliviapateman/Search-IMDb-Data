@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ControllerTests {
 
 	@Autowired
-	HomeController homeController;
+	private HomeController homeController;
 
 	@Autowired
-	MoviesController moviesController;
+	private MoviesController moviesController;
 
 	@Test
 	void homePageLoads() {
