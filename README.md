@@ -1,14 +1,14 @@
 # IMDb Exercise
 
 ## About:
-This project was built in IntelliJ IDEA.
-
 The project works by taking in a 'titles.basics.tsv.gz' file and parsing the information that is specified
 by the data's headers. The information is then stored in an in-memory database. A welcome page, and a search page 
 are accessible via a web browser. The search function on the webpage is conducted through a query that looks
 through the database and matches the search keyword 
 to the primary titles. Results are then displayed as a table below the search bar. 
 Users can scroll through the table to find their desired result.
+
+This project was built in IntelliJ IDEA.
 
 ### Prerequisites:
 - Must have title.basics.tsv.gz downloaded (from [here](https://datasets.imdbws.com/)) and stored in the project folder.  
